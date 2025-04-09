@@ -6,16 +6,14 @@ class AuthService: ObservableObject {
     private var handle: AuthStateDidChangeListenerHandle?
 
     init() {
+        // Controlla immediatamente lo stato di autenticazione
+        isLoggedIn = Auth.auth().currentUser != nil
+        
+        // Aggiungi il listener per i cambiamenti futuri
         handle = Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             DispatchQueue.main.async {
-                guard let self = self else { return }
-                let wasLoggedIn = self.isLoggedIn // Memorizza lo stato precedente
-                self.isLoggedIn = (user != nil)
-                print("DEBUG: AuthService - addStateDidChangeListener: isLoggedIn = \(self.isLoggedIn)")
-                // Aggiungi un log per capire quando lo stato cambia
-                if wasLoggedIn != self.isLoggedIn {
-                    print("DEBUG: AuthService - Stato login cambiato a: \(self.isLoggedIn)")
-                }
+                self?.isLoggedIn = user != nil
+                print("DEBUG: AuthService - Stato login cambiato a: \(user != nil)")
             }
         }
     }

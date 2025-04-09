@@ -3,7 +3,7 @@ import Foundation
 import Combine
 
 class NetworkService {
-    func uploadAudio(fileURL: URL, description: String, apiKey: String, databaseId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func uploadAudio(fileURL: URL, description: String, apiKey: String, databaseId: String, cloudinaryApiKey: String, cloudinaryApiSecret: String, cloudinaryCloudName: String, completion: @escaping (Result<String, Error>) -> Void) {
 
         guard let url = URL(string: "https://notionwatchserver.onrender.com/upload") else { //USA IP o HOSTNAME
             completion(.failure(NetworkError.invalidURL))
@@ -49,6 +49,21 @@ class NetworkService {
         data.append(databaseId.data(using: .utf8)!)
         data.append("\r\n".data(using: .utf8)!)
 
+        // Add Cloudinary credentials
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"cloudinaryApiKey\"\r\n\r\n".data(using: .utf8)!)
+        data.append(cloudinaryApiKey.data(using: .utf8)!)
+        data.append("\r\n".data(using: .utf8)!)
+
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"cloudinaryApiSecret\"\r\n\r\n".data(using: .utf8)!)
+        data.append(cloudinaryApiSecret.data(using: .utf8)!)
+        data.append("\r\n".data(using: .utf8)!)
+
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"cloudinaryCloudName\"\r\n\r\n".data(using: .utf8)!)
+        data.append(cloudinaryCloudName.data(using: .utf8)!)
+        data.append("\r\n".data(using: .utf8)!)
 
         data.append("--\(boundary)--\r\n".data(using: .utf8)!)
         request.httpBody = data

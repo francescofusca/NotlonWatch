@@ -3,8 +3,8 @@ import AVFoundation
 import Firebase
 
 @main
-struct NotionWatchNewApp: App { // Usa il nome del NUOVO progetto
-    @State private var authService: AuthService?
+struct NotionWatchNewApp: App {
+    @StateObject private var authService = AuthService() // Cambiato da @State a @StateObject
     @State private var showSignUp = false
 
     init() {
@@ -14,23 +14,16 @@ struct NotionWatchNewApp: App { // Usa il nome del NUOVO progetto
 
     var body: some Scene {
         WindowGroup {
-            if let authService = authService {
-                if authService.isLoggedIn {
-                    ContentView(authViewModel: AuthViewModel(authService: authService))
-                } else {
-                    VStack {
-                        if showSignUp {
-                            SignUpView(viewModel: AuthViewModel(authService: authService), showSignUp: $showSignUp)
-                        } else {
-                            LoginView(viewModel: AuthViewModel(authService: authService), showSignUp: $showSignUp)
-                        }
+            if authService.isLoggedIn {
+                ContentView(authViewModel: AuthViewModel(authService: authService))
+            } else {
+                VStack {
+                    if showSignUp {
+                        SignUpView(viewModel: AuthViewModel(authService: authService), showSignUp: $showSignUp)
+                    } else {
+                        LoginView(viewModel: AuthViewModel(authService: authService), showSignUp: $showSignUp)
                     }
                 }
-            } else {
-                ProgressView()
-                    .onAppear {
-                        self.authService = AuthService()
-                    }
             }
         }
     }

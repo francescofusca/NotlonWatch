@@ -26,6 +26,23 @@ struct SettingsView: View {
                     //.textFieldStyle(RoundedBorderTextFieldStyle()) // RIMUOVI
                     //.autocapitalization(.none) RIMUOVO
                     //.disableAutocorrection(true) RIMUOVO
+
+                Text("Cloudinary API Key:")
+                    .font(.headline)
+                TextField("Inserisci la tua API Key", text: $viewModel.cloudinaryAPIKey)
+
+                Text("Cloudinary API Secret:")
+                    .font(.headline)
+                TextField("Inserisci il tuo API Secret", text: $viewModel.cloudinaryAPISecret)
+
+                Text("Cloudinary Cloud Name:")
+                    .font(.headline)
+                TextField("Inserisci il tuo Cloud Name", text: $viewModel.cloudinaryCloudName)
+
+                Text("Nota: Prima di inserire le credenziali, salva le API sul tuo iPhone e incollale qui per velocizzare l'inserimento.")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.top)
                 
                 HStack{
                     Spacer()
