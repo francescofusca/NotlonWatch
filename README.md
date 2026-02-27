@@ -2,6 +2,9 @@
 
 **NotlonWatch** is an open-source Apple Watch application that allows you to record audio notes, transcribe them (optional), and automatically save them to a Notion database via a secure middleware server. It supports uploading audio files to Cloudinary and linking them directly in your Notion pages.
 
+NotlonWatch and the NotlonWatch logo are not affiliated with or endorsed by Notion Labs, Inc. Notion™ is a trademark of Notion Labs, Inc.
+
+
 
 <img width="1024" height="1024" alt="ChatGPT Image 25 dic 2025, 14_35_07" src="https://github.com/user-attachments/assets/f63d5989-aa79-438e-9e70-430a6dc59910" />
 
